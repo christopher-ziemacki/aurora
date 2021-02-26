@@ -1,1 +1,1 @@
-docker-compose --build -p aurora -f .\.docker\dockercompose.yml up 
+docker-compose -p aurora -f .\.docker\dockercompose.yml up --build
