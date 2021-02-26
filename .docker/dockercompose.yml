@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  webapi:
+    image: webapi
+    build:
+      context: ..
+      dockerfile: .docker/webapi.dockerfile
+    ports:
+      - 5000:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - aurora-network
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+
+networks:
+  aurora-network:
+    driver: bridge
