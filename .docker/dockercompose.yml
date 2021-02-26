@@ -16,6 +16,18 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
 
+  worker:
+    image: worker
+    build:
+      context: ..
+      dockerfile: .docker/worker.dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - aurora-network
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+
 networks:
   aurora-network:
     driver: bridge
