@@ -3,7 +3,7 @@ version: '3.4'
 services:
   webapi:
     container_name: aurora-webapi
-    image: webapi:dev
+    image: aurora-webapi:dev
     build:
       context: ..
       dockerfile: .docker/webapi.dockerfile
@@ -19,7 +19,7 @@ services:
 
   worker:
     container_name: aurora-worker
-    image: worker:dev
+    image: aurora-worker:dev
     build:
       context: ..
       dockerfile: .docker/worker.dockerfile
@@ -29,7 +29,7 @@ services:
       - aurora-network
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
-
+      
 networks:
   aurora-network:
     driver: bridge
