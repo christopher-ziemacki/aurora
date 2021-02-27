@@ -1,0 +1,1 @@
+./.docker/dockercompose.ps1
