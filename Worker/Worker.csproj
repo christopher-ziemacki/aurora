@@ -4,6 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>dotnet-Worker-35F68F34-E983-4026-82C1-6C932A99D1B1</UserSecretsId>
     <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
+    <RootNamespace>Aurora.Worker</RootNamespace>
+    <AssemblyName>Aurora.Worker</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
