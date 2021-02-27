@@ -1,6 +1,14 @@
 version: '3.4'
 
 services:
+  rabbitmq:
+    container_name: aurora-rabbitmq
+    image: rabbitmq:3.8.12-management
+    ports:
+      - 15672:15672
+    networks:
+      - aurora-network
+    
   webapi:
     container_name: aurora-webapi
     image: aurora-webapi:dev
