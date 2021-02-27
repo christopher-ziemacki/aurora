@@ -9,4 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Integration.Contracts\Integration.Contracts.csproj" />
+  </ItemGroup>
 </Project>

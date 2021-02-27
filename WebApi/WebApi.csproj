@@ -5,4 +5,9 @@
     <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Integration.Contracts\Integration.Contracts.csproj" />
+  </ItemGroup>
+
+
 </Project>

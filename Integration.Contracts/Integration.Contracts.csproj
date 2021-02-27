@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Aurora.Integration.Contracts</RootNamespace>
+    <AssemblyName>Aurora.Integration.Contracts</AssemblyName>
   </PropertyGroup>
 
 </Project>
