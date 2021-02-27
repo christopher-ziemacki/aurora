@@ -9,5 +9,9 @@
     <ProjectReference Include="..\Integration.Contracts\Integration.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="7.1.6" />
+  </ItemGroup>
+
 
 </Project>
