@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using Aurora.Integration.Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aurora.WebApi.Controllers 
@@ -8,15 +10,23 @@ namespace Aurora.WebApi.Controllers
     [Route("api/organization/{organizationId}/nurtureplan/{nurturePlanId}/event")]    
     public class NurturePlanEventController : ControllerBase
     {
-        public NurturePlanEventController()
+        private readonly IPublishEndpoint publishEndpoint;
+
+        public NurturePlanEventController(IPublishEndpoint publishEndpoint)
         {
-            
+            this.publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         [HttpPost("created")]
         public async Task<IActionResult> Created(Guid organizationId, Guid nurturePlanId)
         {
-            return Ok("nurture plan created! how cool is that?");
+            await publishEndpoint.Publish<INurturePlanCreated>(new
+            {
+                OrganizationId = organizationId,
+                NurturePlanId = nurturePlanId
+            });
+
+            return NoContent();
         }
     }
 }

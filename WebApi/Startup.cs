@@ -1,3 +1,5 @@
+using Aurora.Integration.Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +20,30 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+
+            services.AddMassTransit(busConfigurator =>
+            {
+                busConfigurator.SetKebabCaseEndpointNameFormatter();
+
+                busConfigurator.AddRequestClient<INurturePlanCreated>
+                (
+                    //new Uri($"exchange:{KebabCaseEndpointNameFormatter.Instance.Consumer<SubmitOrderConsumer>()}")
+                );
+
+                busConfigurator.UsingRabbitMq((busRegistrationContext, rabbitMqBusFactoryConfigurator) =>
+                {
+                    rabbitMqBusFactoryConfigurator.Host("aurora-rabbitmq");
+                    rabbitMqBusFactoryConfigurator.ConfigureEndpoints(busRegistrationContext);
+
+                    rabbitMqBusFactoryConfigurator.UseMessageRetry(retryConfigurator =>
+                    {
+
+                    });
+                });
+            });
+
+            services.AddMassTransitHostedService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

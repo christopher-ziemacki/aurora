@@ -1,7 +1,8 @@
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Worker
+namespace Aurora.Worker
 {
     public class Program
     {
@@ -14,7 +15,22 @@ namespace Worker
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddHostedService<MassTransitWorkerHostedService>();
                     services.AddHostedService<Worker>();
+
+                    services.AddMassTransit(busConfigurator =>
+                    {
+                        busConfigurator.SetKebabCaseEndpointNameFormatter();
+
+                        busConfigurator.AddConsumer<NurturePlanCreatedConsumer>();
+                        
+                        busConfigurator.UsingRabbitMq((busRegistrationContext, rabbitMqBusFactoryConfigurator) =>
+                        {
+                            rabbitMqBusFactoryConfigurator.Host("aurora-rabbitmq");
+
+                            rabbitMqBusFactoryConfigurator.ConfigureEndpoints(busRegistrationContext);
+                        });
+                    });
                 });
     }
 }

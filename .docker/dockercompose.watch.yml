@@ -10,7 +10,7 @@ services:
       - aurora-network
     
   webapi:
-    container_name: aurora-webapi-watch
+    container_name: aurora-webapi
     image: aurora-webapi:dev
     build:
       context: ..
@@ -27,7 +27,7 @@ services:
       - ../:/app
 
   worker:
-    container_name: aurora-worker-watch
+    container_name: aurora-worker
     image: aurora-worker:dev
     build:
       context: ..
