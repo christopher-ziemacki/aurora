@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    container_name: aurora-rabbitmq
+    image: rabbitmq:3.8.12-management
+    ports:
+      - 15672:15672
+    networks:
+      - aurora-network
+    
+  webapi:
+    container_name: aurora-webapi-watch
+    image: aurora-webapi:dev
+    build:
+      context: ..
+      dockerfile: .docker/webapi.watch.dockerfile
+    ports:
+      - 5000:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - aurora-network
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+      - ../:/app
+
+  worker:
+    container_name: aurora-worker-watch
+    image: aurora-worker:dev
+    build:
+      context: ..
+      dockerfile: .docker/worker.watch.dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - aurora-network
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+      - ../:/app
+      
+networks:
+  aurora-network:
+    driver: bridge

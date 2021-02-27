@@ -6,7 +6,7 @@ namespace Aurora.WebApi.Controllers
 {
     [ApiController]
     [Route("api/organization/{organizationId}/nurtureplan/{nurturePlanId}/event")]    
-    internal class NurturePlanEventController : ControllerBase
+    public class NurturePlanEventController : ControllerBase
     {
         public NurturePlanEventController()
         {
@@ -16,7 +16,7 @@ namespace Aurora.WebApi.Controllers
         [HttpPost("created")]
         public async Task<IActionResult> Created(Guid organizationId, Guid nurturePlanId)
         {
-            return Ok("nurture plan created");
+            return Ok("nurture plan created! how cool is that?");
         }
     }
 }
